@@ -19,6 +19,23 @@ class GameOfLifeTest {
 			0,0,0
 		), output)
 	}
+
+	@Test
+	internal fun `a living cell surrounded by two living cells should stay alive`() {
+		val input: List<Int> = listOf(
+			1,1,0,
+			0,1,0,
+			0,0,0
+		)
+
+		val output = evolve(input)
+
+		assertEquals(listOf(
+			0,0,0,
+			0,1,0,
+			0,0,0
+		), output)
+	}
 }
 
 fun evolve(initialState: List<Int>): List<Int> {
