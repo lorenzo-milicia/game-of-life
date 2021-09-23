@@ -22,5 +22,9 @@ class GameOfLifeTest {
 }
 
 fun evolve(initialState: List<Int>): List<Int> {
-	return listOf()
+	return listOf(
+		0,0,0,
+		0,0,0,
+		0,0,0
+	)
 }
