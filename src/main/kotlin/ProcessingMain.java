@@ -2,8 +2,8 @@ import processing.core.PApplet;
 
 public class ProcessingMain extends PApplet {
 
-    private static final int dimension = 100;
-    Integer t = 0;
+    private static final int dimension = 50;
+    float t = 0;
     Integer[] cells = new Integer[dimension * dimension];
     public static void main(String[] args) {
         PApplet.main("ProcessingMain");
@@ -14,7 +14,8 @@ public class ProcessingMain extends PApplet {
     }
 
     public void setup() {
-        background(255);
+        background(0);
+        colorMode(HSB, 255);
 
         for (int i = 0; i < cells.length; i++) {
             cells[i] = round(pow(random(1), 6));
@@ -23,22 +24,25 @@ public class ProcessingMain extends PApplet {
     }
 
     public void draw() {
-        background(255);
+        background(0);
 
         for (int i = 0; i < cells.length; i++) {
             Integer column = i % dimension;
             Integer row = i / dimension;
             Integer size = 1000 / dimension;
             if (cells[i] == 1) {
-                fill(255);
+                fill((column + t/1000.f) % 255, 255,255);
+                //circle(column * size, row * size, size);
+                square(column * size, row * size, size);
             } else {
                 fill(0);
             }
-            square(column * size, row * size, size);
+
+            t++;
         }
 
         cells = Evolver.INSTANCE.evolve(cells, dimension);
-        delay(50);
+        delay(100);
 
     }
 
