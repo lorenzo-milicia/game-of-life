@@ -27,13 +27,13 @@ public class ProcessingMain extends PApplet {
         background(0);
 
         for (int i = 0; i < cells.length; i++) {
-            Integer column = i % dimension;
-            Integer row = i / dimension;
-            Integer size = 1000 / dimension;
+            int column = i % dimension;
+            int row = i / dimension;
+            int size = 1000 / dimension;
             if (cells[i] == 1) {
                 fill((column + t/1000.f) % 255, 255,255);
-                //circle(column * size, row * size, size);
-                square(column * size, row * size, size);
+                ellipse(column * size, row * size, size, size);
+                rect(column * size, row * size, size, size);
             } else {
                 fill(0);
             }

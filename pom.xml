@@ -89,6 +89,13 @@
             <artifactId>kotlin-stdlib-jdk8</artifactId>
             <version>1.5.10</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.processing/core -->
+        <dependency>
+            <groupId>org.processing</groupId>
+            <artifactId>core</artifactId>
+            <version>3.3.7</version>
+        </dependency>
+
     </dependencies>
 
 </project>
