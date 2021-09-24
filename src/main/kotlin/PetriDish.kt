@@ -1,10 +1,14 @@
-object Evolver {
+class PetriDish(
+	cells: List<Int>
+) {
 
-	fun evolve(initialState: List<Int>, dimension: Int): List<Int> {
+	private val cells: MutableList<Cell>
 
-		val cells: MutableList<Cell> =
-			initialState.map { if (it == 1) Cell(CellState.ALIVE) else Cell(CellState.DEAD) }.toMutableList()
+	init {
+		this.cells = cells.map { if (it == 1) Cell(CellState.ALIVE) else Cell(CellState.DEAD) }.toMutableList()
+	}
 
+	fun evolve(dimension: Int): List<Int> {
 		for ((index, cell) in cells.withIndex()) {
 			val column = index % dimension
 			val row = index / dimension

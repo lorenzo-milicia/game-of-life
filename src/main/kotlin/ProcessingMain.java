@@ -8,6 +8,8 @@ public class ProcessingMain extends PApplet {
     private static final int dimension = 100;
     float t = 0;
     Integer[] cells = new Integer[dimension * dimension];
+    PetriDish petriDish;
+
     public static void main(String[] args) {
         PApplet.main("ProcessingMain");
     }
@@ -23,7 +25,8 @@ public class ProcessingMain extends PApplet {
         for (int i = 0; i < cells.length; i++) {
             cells[i] = round(pow(random(1), 6));
         }
-//        Evolver.INSTANCE.evolveKt(Arrays.asList(cells), 10);
+
+        petriDish = new PetriDish(Arrays.asList(cells));
     }
 
     public void draw() {
@@ -44,7 +47,7 @@ public class ProcessingMain extends PApplet {
             t++;
         }
 
-        cells = Evolver.INSTANCE.evolve(Arrays.asList(cells), dimension).toArray(new Integer[0]);
+        cells = petriDish.evolve(dimension).toArray(new Integer[0]);
         delay(50);
 
     }

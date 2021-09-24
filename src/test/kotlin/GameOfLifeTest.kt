@@ -10,8 +10,8 @@ class GameOfLifeTest {
 			0, 1, 0,
 			0, 0, 0
 		)
-
-		val output = Evolver.evolve(input, 3)
+		val petriDish = PetriDish(input)
+		val output = petriDish.evolve(3)
 
 		assertEquals(
 			listOf(
@@ -28,8 +28,8 @@ class GameOfLifeTest {
 			0, 1, 0,
 			0, 0, 0
 		)
-
-		val output = Evolver.evolve(input, 3)
+		val petriDish = PetriDish(input)
+		val output = petriDish.evolve(3)
 
 		assertEquals(
 			listOf(
@@ -46,8 +46,8 @@ class GameOfLifeTest {
 			0, 1, 1,
 			0, 0, 0
 		)
-
-		val output = Evolver.evolve(input, 3)
+		val petriDish = PetriDish(input)
+		val output = petriDish.evolve(3)
 
 		assertEquals(
 			listOf(
@@ -64,8 +64,8 @@ class GameOfLifeTest {
 			0, 0, 0,
 			0, 0, 0
 		)
-
-		val output = Evolver.evolve(input, 3)
+		val petriDish = PetriDish(input)
+		val output = petriDish.evolve(3)
 
 		assertEquals(
 			listOf(
@@ -84,8 +84,8 @@ class GameOfLifeTest {
 			0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0
 		)
-
-		val output = Evolver.evolve(input, 5)
+		val petriDish = PetriDish(input)
+		val output = petriDish.evolve(5)
 
 		assertEquals(
 			listOf(
