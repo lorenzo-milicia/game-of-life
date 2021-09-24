@@ -74,6 +74,28 @@ class GameOfLifeTest {
 				0, 0, 0
 			), output)
 	}
+
+	@Test
+	internal fun `a 5 by 5 matrix of cells should evolve correctly`() {
+		val input: List<Int> = listOf(
+			0, 0, 0, 0, 0,
+			0, 1, 1, 0, 0,
+			0, 0, 1, 0, 0,
+			0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0
+		)
+
+		val output = evolve(input)
+
+		assertEquals(
+			listOf(
+				0, 0, 0, 0, 0,
+				0, 1, 1, 0, 0,
+				0, 1, 1, 0, 0,
+				0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0
+			), output)
+	}
 }
 
 fun evolve(initialState: List<Int>): List<Int> {
@@ -105,26 +127,27 @@ class Cell(
 		state = CellState.ALIVE
 	}
 
-	fun evolve(neighbouringCells: List<Cell>){
-
+	fun evolve(neighbouringCells: List<Cell>) {
 		val neighbouringLivingCells = neighbouringCells.count { it.isAlive }
+		val MAX_LIVING_NEIGHBOURING_CELLS = 3
+		val MIN_LIVING_NEIGHBOURING_CELLS = 2
+		val MAGIC_NUMBER_FOR_RESUSCITATING = 3
 
 		if (isAlive) {
 			when {
-				neighbouringLivingCells > 3 -> kill()
-				neighbouringLivingCells < 2 -> kill()
-				else                        -> Unit
+				neighbouringLivingCells > MAX_LIVING_NEIGHBOURING_CELLS -> kill()
+				neighbouringLivingCells < MIN_LIVING_NEIGHBOURING_CELLS -> kill()
+				else                                                    -> Unit
 			}
 		}
 		else {
 			when (neighbouringLivingCells) {
-				3    -> resuscitate()
-				else -> Unit
+				MAGIC_NUMBER_FOR_RESUSCITATING -> resuscitate()
+				else                           -> Unit
 			}
 		}
 	}
 }
-
 
 enum class CellState {
 	ALIVE,
