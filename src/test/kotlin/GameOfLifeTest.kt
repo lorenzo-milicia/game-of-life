@@ -11,7 +11,7 @@ class GameOfLifeTest {
 			0, 0, 0
 		)
 
-		val output = Evolver.evolve(input)
+		val output = Evolver.evolve(input, 3)
 
 		assertEquals(
 			listOf(
@@ -29,7 +29,7 @@ class GameOfLifeTest {
 			0, 0, 0
 		)
 
-		val output = Evolver.evolve(input)
+		val output = Evolver.evolve(input, 3)
 
 		assertEquals(
 			listOf(
@@ -47,7 +47,7 @@ class GameOfLifeTest {
 			0, 0, 0
 		)
 
-		val output = Evolver.evolve(input)
+		val output = Evolver.evolve(input, 3)
 
 		assertEquals(
 			listOf(
@@ -65,7 +65,7 @@ class GameOfLifeTest {
 			0, 0, 0
 		)
 
-		val output = Evolver.evolve(input)
+		val output = Evolver.evolve(input, 3)
 
 		assertEquals(
 			listOf(
@@ -85,7 +85,7 @@ class GameOfLifeTest {
 			0, 0, 0, 0, 0
 		)
 
-		val output = Evolver.evolve(input)
+		val output = Evolver.evolve(input, 5)
 
 		assertEquals(
 			listOf(

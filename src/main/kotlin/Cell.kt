@@ -1,5 +1,3 @@
-import CellState
-
 data class Cell(
 	private var state: CellState = CellState.DEAD
 ) {
@@ -32,9 +30,9 @@ data class Cell(
 			}
 		}
 		else {
-			when (neighbouringLivingCells) {
-				MAGIC_NUMBER_FOR_RESUSCITATING -> resuscitate()
-				else                           -> Unit
+			when {
+				neighbouringLivingCells == MAGIC_NUMBER_FOR_RESUSCITATING -> resuscitate()
+				else                                                      -> Unit
 			}
 		}
 	}
