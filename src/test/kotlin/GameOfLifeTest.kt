@@ -39,16 +39,35 @@ class GameOfLifeTest {
 }
 
 fun evolve(initialState: List<Int>): List<Int> {
-	val tempList: MutableList<Int> = initialState.toMutableList()
-	var cell = tempList.removeAt(4)
-	val neighbouringLivingCells = tempList.sum()
+	val cells: MutableList<Cell> = initialState.map { if (it == 0) Cell(CellState.DEAD) else Cell(CellState.ALIVE) } as MutableList<Cell>
+
+	var cell: Cell = cells.removeAt(4)
+	val neighbouringLivingCells = cells.count { it.isAlive }
 	cell = when {
-		neighbouringLivingCells > 3 -> 0
-		neighbouringLivingCells < 2 -> 0
-		else                        -> 1
+		neighbouringLivingCells > 3 -> Cell(CellState.ALIVE)
+		neighbouringLivingCells < 2 -> Cell()
+		else                        -> Cell(CellState.ALIVE)
 	}
 
-	tempList.add(4, cell)
-	return tempList
 
+	cells.add(4, cell)
+	return cells.map { if(it.isAlive) 1 else 0 }
+}
+
+class Cell(
+	var state: CellState = CellState.DEAD
+) {
+	val isAlive: Boolean
+	get() = state == CellState.ALIVE
+
+	val isDead: Boolean
+		get() = state == CellState.DEAD
+
+}
+
+
+
+enum class CellState {
+	ALIVE,
+	DEAD
 }
