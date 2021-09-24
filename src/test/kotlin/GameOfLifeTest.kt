@@ -81,30 +81,10 @@ fun evolve(initialState: List<Int>): List<Int> {
 		initialState.map { if (it == 0) Cell(CellState.DEAD) else Cell(CellState.ALIVE) } as MutableList<Cell>
 
 	var cell = cells.removeAt(4)
-	cell = evolveCell(cell, cells)
+	cell.evolve(cells)
 
 	cells.add(4, cell)
 	return cells.map { if (it.isAlive) 1 else 0 }
-}
-
-private fun evolveCell(cell: Cell, neighbouringCells: List<Cell>): Cell {
-
-	val neighbouringLivingCells = neighbouringCells.count { it.isAlive }
-
-	if (cell.isAlive) {
-		when {
-			neighbouringLivingCells > 3 -> cell.kill()
-			neighbouringLivingCells < 2 -> cell.kill()
-			else                        -> Unit
-		}
-	}
-	else {
-		when (neighbouringLivingCells) {
-			3    -> cell.resuscitate()
-			else -> Unit
-		}
-	}
-	return cell
 }
 
 class Cell(
@@ -123,6 +103,25 @@ class Cell(
 
 	fun resuscitate() {
 		state = CellState.ALIVE
+	}
+
+	fun evolve(neighbouringCells: List<Cell>){
+
+		val neighbouringLivingCells = neighbouringCells.count { it.isAlive }
+
+		if (isAlive) {
+			when {
+				neighbouringLivingCells > 3 -> kill()
+				neighbouringLivingCells < 2 -> kill()
+				else                        -> Unit
+			}
+		}
+		else {
+			when (neighbouringLivingCells) {
+				3    -> resuscitate()
+				else -> Unit
+			}
+		}
 	}
 }
 
