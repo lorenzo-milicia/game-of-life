@@ -2,6 +2,13 @@ data class Cell(
 	private var state: CellState = CellState.DEAD
 ) {
 
+	private var fate: CellState
+
+	init {
+		fate = state
+	}
+
+
 	val isAlive: Boolean
 		get() = state == CellState.ALIVE
 
@@ -9,14 +16,14 @@ data class Cell(
 		get() = state == CellState.DEAD
 
 	fun kill() {
-		state = CellState.DEAD
+		fate = CellState.DEAD
 	}
 
 	fun resuscitate() {
-		state = CellState.ALIVE
+		fate = CellState.ALIVE
 	}
 
-	fun evolve(neighbouringCells: List<Cell>) {
+	fun decideFate(neighbouringCells: List<Cell>) {
 		val neighbouringLivingCells = neighbouringCells.count { it.isAlive }
 		val MAX_LIVING_NEIGHBOURING_CELLS = 3
 		val MIN_LIVING_NEIGHBOURING_CELLS = 2
@@ -35,5 +42,9 @@ data class Cell(
 				else                                                      -> Unit
 			}
 		}
+	}
+
+	fun executeFate() {
+		state = fate
 	}
 }
