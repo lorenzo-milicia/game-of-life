@@ -99,57 +99,26 @@ class GameOfLifeTest {
 }
 
 fun evolve(initialState: List<Int>): List<Int> {
+
 	val cells: MutableList<Cell> =
-		initialState.map { if (it == 0) Cell(CellState.DEAD) else Cell(CellState.ALIVE) } as MutableList<Cell>
+		initialState.map { if (it == 1) Cell(CellState.ALIVE) else Cell(CellState.DEAD) }.toMutableList()
 
-	var cell = cells.removeAt(4)
-	cell.evolve(cells)
+	for ((index, cell) in cells.withIndex()) {
+		val column = index % 5
+		val row = index / 5
+		if (column == 0 || column == 4 || row == 0 || row == 4) Unit
+		else cell.evolve(listOf(
+			cells[5 * (row-1) + column - 1],
+			cells[5 * (row-1) + column    ],
+			cells[5 * (row-1) + column + 1],
+			cells[5 * (row  ) + column - 1],
+			cells[5 * (row  ) + column + 1],
+			cells[5 * (row+1) + column - 1],
+			cells[5 * (row+1) + column    ],
+			cells[5 * (row+1) + column + 1],
+		))
+	}
 
-	cells.add(4, cell)
 	return cells.map { if (it.isAlive) 1 else 0 }
 }
 
-class Cell(
-	private var state: CellState = CellState.DEAD
-) {
-
-	val isAlive: Boolean
-		get() = state == CellState.ALIVE
-
-	val isDead: Boolean
-		get() = state == CellState.DEAD
-
-	fun kill() {
-		state = CellState.DEAD
-	}
-
-	fun resuscitate() {
-		state = CellState.ALIVE
-	}
-
-	fun evolve(neighbouringCells: List<Cell>) {
-		val neighbouringLivingCells = neighbouringCells.count { it.isAlive }
-		val MAX_LIVING_NEIGHBOURING_CELLS = 3
-		val MIN_LIVING_NEIGHBOURING_CELLS = 2
-		val MAGIC_NUMBER_FOR_RESUSCITATING = 3
-
-		if (isAlive) {
-			when {
-				neighbouringLivingCells > MAX_LIVING_NEIGHBOURING_CELLS -> kill()
-				neighbouringLivingCells < MIN_LIVING_NEIGHBOURING_CELLS -> kill()
-				else                                                    -> Unit
-			}
-		}
-		else {
-			when (neighbouringLivingCells) {
-				MAGIC_NUMBER_FOR_RESUSCITATING -> resuscitate()
-				else                           -> Unit
-			}
-		}
-	}
-}
-
-enum class CellState {
-	ALIVE,
-	DEAD
-}
