@@ -11,7 +11,7 @@ class GameOfLifeTest {
 			0, 0, 0
 		)
 
-		val output = evolve(input)
+		val output = Evolver.evolve(input)
 
 		assertEquals(
 			listOf(
@@ -29,7 +29,7 @@ class GameOfLifeTest {
 			0, 0, 0
 		)
 
-		val output = evolve(input)
+		val output = Evolver.evolve(input)
 
 		assertEquals(
 			listOf(
@@ -47,7 +47,7 @@ class GameOfLifeTest {
 			0, 0, 0
 		)
 
-		val output = evolve(input)
+		val output = Evolver.evolve(input)
 
 		assertEquals(
 			listOf(
@@ -65,7 +65,7 @@ class GameOfLifeTest {
 			0, 0, 0
 		)
 
-		val output = evolve(input)
+		val output = Evolver.evolve(input)
 
 		assertEquals(
 			listOf(
@@ -85,7 +85,7 @@ class GameOfLifeTest {
 			0, 0, 0, 0, 0
 		)
 
-		val output = evolve(input)
+		val output = Evolver.evolve(input)
 
 		assertEquals(
 			listOf(
@@ -98,27 +98,5 @@ class GameOfLifeTest {
 	}
 }
 
-fun evolve(initialState: List<Int>): List<Int> {
 
-	val cells: MutableList<Cell> =
-		initialState.map { if (it == 1) Cell(CellState.ALIVE) else Cell(CellState.DEAD) }.toMutableList()
-
-	for ((index, cell) in cells.withIndex()) {
-		val column = index % 5
-		val row = index / 5
-		if (column == 0 || column == 4 || row == 0 || row == 4) Unit
-		else cell.evolve(listOf(
-			cells[5 * (row-1) + column - 1],
-			cells[5 * (row-1) + column    ],
-			cells[5 * (row-1) + column + 1],
-			cells[5 * (row  ) + column - 1],
-			cells[5 * (row  ) + column + 1],
-			cells[5 * (row+1) + column - 1],
-			cells[5 * (row+1) + column    ],
-			cells[5 * (row+1) + column + 1],
-		))
-	}
-
-	return cells.map { if (it.isAlive) 1 else 0 }
-}
 
