@@ -15,7 +15,9 @@ public class ProcessingMain extends PApplet {
     }
 
     public void settings() {
-        size(1000, 1000);
+        //fullScreen();
+        size(1000, 1000, JAVA2D);
+
     }
 
     public void setup() {
@@ -37,9 +39,9 @@ public class ProcessingMain extends PApplet {
             int row = i / dimension;
             int size = 1000 / dimension;
             if (cells[i] == 1) {
-                fill((column + t/1000.f) % 255, 255,255);
-                //ellipse(column * size, row * size, size, size);
-                rect(column * size, row * size, size, size);
+                fill((column + t / 1000.f) % 255, 255, 255);
+                //circle(column * size, row * size, size);
+                square(column * size, row * size, size);
             } else {
                 fill(0);
             }
@@ -48,7 +50,7 @@ public class ProcessingMain extends PApplet {
         }
 
         cells = petriDish.evolve(dimension).toArray(new Integer[0]);
-        delay(50);
+        //delay(50);
 
     }
 

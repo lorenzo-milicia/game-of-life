@@ -89,13 +89,13 @@
             <artifactId>kotlin-stdlib-jdk8</artifactId>
             <version>1.5.10</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.processing/core -->
         <dependency>
-            <groupId>org.processing</groupId>
-            <artifactId>core</artifactId>
-            <version>3.3.7</version>
+            <groupId>com.mylib</groupId>
+            <artifactId>mylib</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/com/mylib/mylib/1.0/mylib-1.0.jar</systemPath>
         </dependency>
-
     </dependencies>
 
 </project>
