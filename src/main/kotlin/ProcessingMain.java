@@ -28,7 +28,7 @@ public class ProcessingMain extends PApplet {
             cells[i] = round(pow(random(1), 6));
         }
 
-        petriDish = new PetriDish(Arrays.asList(cells));
+        petriDish = new PetriDish(Arrays.asList(cells), dimension, dimension);
     }
 
     public void draw() {
@@ -49,7 +49,7 @@ public class ProcessingMain extends PApplet {
             t++;
         }
 
-        cells = petriDish.evolve(dimension).toArray(new Integer[0]);
+        cells = petriDish.evolve().toArray(new Integer[0]);
         //delay(50);
 
     }
