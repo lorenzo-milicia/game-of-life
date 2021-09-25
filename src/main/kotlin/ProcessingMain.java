@@ -4,14 +4,15 @@ import java.util.Arrays;
 
 
 public class ProcessingMain extends PApplet {
+    public static PApplet processing;
 
-    private static final Resolution resolution = new Resolution(1920, 1080);
-    private static final int cellSize = 40; //to avoid bugs make sure the resolution is a multiple of this
-    private static final Grid grid = new Grid(resolution.horizontal / cellSize, resolution.vertical / cellSize);
+    public static final Resolution resolution = new Resolution(1920, 1080);
+    public static final int cellSize = 40; //to avoid bugs make sure the resolution is a multiple of this
+    public static final Grid grid = new Grid(resolution.horizontal / cellSize, resolution.vertical / cellSize);
     Integer[] initialState;
     PetriDish petriDish;
-    float t = 0;
-    private boolean isEvolutionHappening = false;
+    public static float t = 0;
+    private boolean isEvolutionHappening = true;
 
     public static void main(String[] args) {
         PApplet.main("ProcessingMain");
@@ -24,6 +25,8 @@ public class ProcessingMain extends PApplet {
     }
 
     public void setup() {
+        processing = this;
+
         background(0);
         colorMode(HSB, 255);
         initialState = new Integer[grid.x * grid.y];
@@ -38,16 +41,7 @@ public class ProcessingMain extends PApplet {
     public void draw() {
         background(0);
 
-        for (int i = 0; i < petriDish.getNumberOfCells(); i++) {
-            int column = i % grid.x;
-            int row = i / grid.x;
-            if (petriDish.getCells().get(i).isAlive()) {
-                fill((column + t) % 255, 255, 255);
-                square(column * cellSize, row * cellSize, cellSize);
-            } else {
-                fill(0);
-            }
-        }
+        Display.display(petriDish);
 
         if (isEvolutionHappening) {
             initialState = petriDish.evolve().toArray(new Integer[0]);
