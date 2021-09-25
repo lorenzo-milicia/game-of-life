@@ -14,7 +14,7 @@ class PetriDish(
 		this.cells = cells.map { if (it == 1) Cell(CellState.ALIVE) else Cell(CellState.DEAD) }.toMutableList()
 	}
 
-	fun evolve(): List<Int> {
+	fun evolve(){
 		for ((index, cell) in cells.withIndex()) {
 			val column = index % columns
 			val row = index / columns
@@ -32,7 +32,6 @@ class PetriDish(
 				))
 		}
 		cells.forEach { it.executeFate() }
-		return cells.map { if (it.isAlive) 1 else 0 }
 	}
 
 	fun switchStateOfCell(index: Int) {

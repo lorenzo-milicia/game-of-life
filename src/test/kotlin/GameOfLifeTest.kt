@@ -11,7 +11,7 @@ class GameOfLifeTest {
 			0, 0, 0
 		)
 		val petriDish = PetriDish(input, 3, 3)
-		val output = petriDish.evolve()
+		val output = petriDish.evolve().let { petriDish.cells.map { if (it.isAlive) 1 else 0 } }
 
 		assertEquals(
 			listOf(
@@ -29,11 +29,11 @@ class GameOfLifeTest {
 			0, 0, 0
 		)
 		val petriDish = PetriDish(input, 3, 3)
-		val output = petriDish.evolve()
+		val output = petriDish.evolve().let { petriDish.cells.map { if (it.isAlive) 1 else 0 } }
 
 		assertEquals(
 			listOf(
-				1, 1, 0,
+				0, 0, 0,
 				0, 1, 0,
 				0, 0, 0
 			), output)
@@ -47,12 +47,12 @@ class GameOfLifeTest {
 			0, 0, 0
 		)
 		val petriDish = PetriDish(input, 3, 3)
-		val output = petriDish.evolve()
+		val output = petriDish.evolve().let { petriDish.cells.map { if (it.isAlive) 1 else 0 } }
 
 		assertEquals(
 			listOf(
-				1, 1, 1,
-				0, 0, 1,
+				0, 0, 0,
+				0, 0, 0,
 				0, 0, 0
 			), output)
 	}
@@ -65,11 +65,11 @@ class GameOfLifeTest {
 			0, 0, 0
 		)
 		val petriDish = PetriDish(input, 3, 3)
-		val output = petriDish.evolve()
+		val output = petriDish.evolve().let { petriDish.cells.map { if (it.isAlive) 1 else 0 } }
 
 		assertEquals(
 			listOf(
-				1, 1, 1,
+				0, 0, 0,
 				0, 1, 0,
 				0, 0, 0
 			), output)
@@ -85,7 +85,7 @@ class GameOfLifeTest {
 			0, 0, 0, 0, 0
 		)
 		val petriDish = PetriDish(input, 5, 5)
-		val output = petriDish.evolve()
+		val output = petriDish.evolve().let { petriDish.cells.map { if (it.isAlive) 1 else 0 } }
 
 		assertEquals(
 			listOf(
