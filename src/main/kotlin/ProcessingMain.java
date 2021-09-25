@@ -5,10 +5,12 @@ import java.util.Arrays;
 
 public class ProcessingMain extends PApplet {
 
-    private static final int dimension = 100;
-    float t = 0;
-    Integer[] cells = new Integer[dimension * dimension];
+    private static final Resolution resolution = new Resolution(1920, 1080);
+    private static final int cellSize = 20;
+    private static final Grid grid = new Grid(resolution.horizontal / cellSize, resolution.vertical / cellSize);
+    Integer[] cells;
     PetriDish petriDish;
+    float t = 0;
 
     public static void main(String[] args) {
         PApplet.main("ProcessingMain");
@@ -16,7 +18,7 @@ public class ProcessingMain extends PApplet {
 
     public void settings() {
         //fullScreen();
-        size(1000, 1000, JAVA2D);
+        size(resolution.horizontal, resolution.vertical, JAVA2D);
 
     }
 
@@ -24,34 +26,32 @@ public class ProcessingMain extends PApplet {
         background(0);
         colorMode(HSB, 255);
 
+        cells = new Integer[grid.x * grid.y];
+
         for (int i = 0; i < cells.length; i++) {
             cells[i] = round(pow(random(1), 6));
         }
 
-        petriDish = new PetriDish(Arrays.asList(cells), dimension, dimension);
+        petriDish = new PetriDish(Arrays.asList(cells), grid.x, grid.y);
     }
 
     public void draw() {
         background(0);
 
         for (int i = 0; i < cells.length; i++) {
-            int column = i % dimension;
-            int row = i / dimension;
-            int size = 1000 / dimension;
+            int column = i % grid.x;
+            int row = i / grid.x;
             if (cells[i] == 1) {
-                fill((column + t / 1000.f) % 255, 255, 255);
-                //circle(column * size, row * size, size);
-                square(column * size, row * size, size);
+                fill((column + t) % 255, 255, 255);
+                square(column * cellSize, row * cellSize, cellSize);
             } else {
                 fill(0);
             }
-
-            t++;
         }
 
         cells = petriDish.evolve().toArray(new Integer[0]);
-        //delay(50);
-
+        t++;
+        delay(50);
     }
 
 }

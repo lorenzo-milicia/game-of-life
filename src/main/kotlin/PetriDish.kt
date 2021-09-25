@@ -15,7 +15,7 @@ class PetriDish(
 		for ((index, cell) in cells.withIndex()) {
 			val column = index % columns
 			val row = index / columns
-			if (column == 0 || column == (columns - 1) || row == 0 || row == (rows - 1)) Unit
+			if (column == 0 || column == (columns - 1) || row == 0 || row == (rows - 1)) cell.kill()
 			else cell.decideFate(
 				listOf(
 					cells[columns * (row - 1) + column - 1],
