@@ -4,7 +4,10 @@ class PetriDish(
 	private val rows: Int
 ) {
 
-	private val cells: MutableList<Cell>
+	val cells: MutableList<Cell>
+
+	val numberOfCells: Int
+		get() = cells.size
 
 	init {
 		if (columns * rows != cells.size) throw Exception("Mismatching number of cells and dimensions.")

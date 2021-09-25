@@ -49,7 +49,7 @@ data class Cell(
 	}
 
 	fun switchState() {
-		if (isAlive) kill()
-		if (isDead) resuscitate()
+		state = if (isAlive) CellState.DEAD.also { kill() }
+		else CellState.ALIVE.also { resuscitate() }
 	}
 }
