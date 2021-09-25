@@ -31,4 +31,8 @@ class PetriDish(
 		cells.forEach { it.executeFate() }
 		return cells.map { if (it.isAlive) 1 else 0 }
 	}
+
+	fun switchStateOfCell(index: Int) {
+		cells[index].switchState()
+	}
 }

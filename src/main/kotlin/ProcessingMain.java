@@ -11,6 +11,7 @@ public class ProcessingMain extends PApplet {
     Integer[] cells;
     PetriDish petriDish;
     float t = 0;
+    private boolean isEvolutionHappening = false;
 
     public static void main(String[] args) {
         PApplet.main("ProcessingMain");
@@ -49,9 +50,17 @@ public class ProcessingMain extends PApplet {
             }
         }
 
-        cells = petriDish.evolve().toArray(new Integer[0]);
+        if (isEvolutionHappening) {
+            cells = petriDish.evolve().toArray(new Integer[0]);
+        }
         t++;
-        delay(50);
+        //delay(50);
+    }
+
+    public void keyPressed() {
+        if (key == ' ') {
+            isEvolutionHappening = !isEvolutionHappening;
+        }
     }
 
 }

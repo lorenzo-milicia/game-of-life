@@ -47,4 +47,9 @@ data class Cell(
 	fun executeFate() {
 		state = fate
 	}
+
+	fun switchState() {
+		if (isAlive) kill()
+		if (isDead) resuscitate()
+	}
 }
