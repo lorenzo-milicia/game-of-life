@@ -3,23 +3,24 @@ import processing.core.PApplet;
 import java.util.Arrays;
 
 
-public class ProcessingMain extends PApplet {
+public class Main extends PApplet {
     public static PApplet processing;
 
+    public static final int cellSize = 20; //to avoid bugs make sure the resolution is a multiple of this
     public static final Resolution resolution = new Resolution(1920, 1080);
-    public static final int cellSize = 40; //to avoid bugs make sure the resolution is a multiple of this
     public static final Grid grid = new Grid(resolution.horizontal / cellSize, resolution.vertical / cellSize);
-    Integer[] initialState;
+
     PetriDish petriDish;
+
     public static float t = 0;
     private boolean isEvolutionHappening = true;
 
     public static void main(String[] args) {
-        PApplet.main("ProcessingMain");
+        PApplet.main("Main");
     }
 
     public void settings() {
-        //fullScreen();
+        //fullScreen(JAVA2D); //remember to comment size() and change the resolution to that of the fullscreen window
         size(resolution.horizontal, resolution.vertical, JAVA2D);
 
     }
@@ -29,7 +30,7 @@ public class ProcessingMain extends PApplet {
 
         background(0);
         colorMode(HSB, 255);
-        initialState = new Integer[grid.x * grid.y];
+        Integer[] initialState = new Integer[grid.x * grid.y];
 
         for (int i = 0; i < initialState.length; i++) {
             initialState[i] = round(pow(random(1), 6));
@@ -44,9 +45,9 @@ public class ProcessingMain extends PApplet {
         Display.display(petriDish);
 
         if (isEvolutionHappening) {
-            initialState = petriDish.evolve().toArray(new Integer[0]);
+            petriDish.evolve();
+            t++;
         }
-        t++;
         delay(50);
     }
 
