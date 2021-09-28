@@ -2,8 +2,8 @@ class PetriDish(
 	private val columns: Int,
 	private val rows: Int
 ) {
-
-	val cells: List<Cell> = Array(columns * rows) { Cell() }.toList()
+	//TODO: Posso mettere val e costruttore secondario insieme?
+	var cells: List<Cell> = Array(columns * rows) { Cell() }.toList()
 
 	val numberOfCells: Int
 		get() = cells.size
@@ -30,5 +30,9 @@ class PetriDish(
 
 	fun switchStateOfCell(index: Int) {
 		cells[index].switchState()
+	}
+
+	constructor(columns: Int, rows: Int, cells: List<Cell>): this(columns, rows) {
+		this.cells = cells
 	}
 }

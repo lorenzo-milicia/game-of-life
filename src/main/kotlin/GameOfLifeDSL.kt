@@ -3,16 +3,22 @@ class PetriBuilder {
 	var columns: Int = 0;
 	var rows: Int = 0;
 	var populationStrategy: Cell.() -> Unit = {}
+	var intList: List<Int>? = null
 
 	fun build(): PetriDish {
-		val petri = PetriDish(columns, rows)
 
-		petri.cells.forEach { populationStrategy(it); it.executeFate() }
+		val petri = if (intList == null) {
+			PetriDish(columns, rows).apply { cells.forEach { populationStrategy(it); it.executeFate() } }
+		}
+		else PetriDish(rows, columns, intList!!.map { if (it == 1) Cell(CellState.ALIVE) else Cell() })
+
+
 		return petri
 	}
 
 
 	companion object {
+
 		@JvmStatic
 		fun builder(lambda: PetriBuilder.() -> Unit): PetriDish {
 			val petridish = PetriBuilder()

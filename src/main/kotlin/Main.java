@@ -3,8 +3,8 @@ import processing.core.PApplet;
 public class Main extends PApplet {
     public static PApplet processing;
 
-    public static final int cellSize = 20; //to avoid bugs make sure the resolution is a multiple of this
-    public static final Resolution resolution = new Resolution(1920, 1080);
+    public static final int cellSize = 10; //to avoid bugs make sure the resolution is a multiple of this
+    public static final Resolution resolution = new Resolution(1000, 1000);
     public static final Grid grid = new Grid(resolution.horizontal / cellSize, resolution.vertical / cellSize);
 
     PetriDish petriDish;
@@ -26,29 +26,26 @@ public class Main extends PApplet {
 
         background(0);
         colorMode(HSB, 255);
-        Integer[] initialState = new Integer[grid.x * grid.y];
 
-        for (int i = 0; i < initialState.length; i++) {
-            initialState[i] = round(pow(random(1), 6));
-        }
+        Matrix<Integer> matrix = GetMatrix.INSTANCE.getMatrix(grid.x, grid.y);
 
         petriDish = PetriBuilder.builder(
                 petriBuilder -> {
                     petriBuilder.setColumns(grid.x);
                     petriBuilder.setRows(grid.y);
-                    petriBuilder.setPopulationStrategy(
+                    petriBuilder.setIntList(matrix.toList());
+                    /*petriBuilder.setPopulationStrategy(
                             cell -> {
                                 if (round((float) Math.random()) == 1) {
                                     cell.resuscitate();
                                 }
                                 return null;
                             }
-                    );
+                    );*/
                     return null;
                 }
         );
 
-        //petriDish = new PetriDish(Arrays.asList(initialState), grid.x, grid.y);
     }
 
     public void draw() {
@@ -74,7 +71,7 @@ public class Main extends PApplet {
                 initialState[i] = round(pow(random(1), 6));
             }
 
-            //petriDish = new PetriDish(Arrays.asList(initialState), grid.x, grid.y);
+            //TODO: reset petri dish
         }
     }
 
