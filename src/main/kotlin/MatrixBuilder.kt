@@ -33,6 +33,51 @@ class MatrixBuilder<T>(
 		matrix.changeElement(n + 2, m + 2, alive)
 	}
 
+	fun gospersCannon(n: Int, m: Int, alive: T, dead: T) {
+		matrix.changeElement(n + 2 , m + 26, alive)
+		matrix.changeElement(n + 3 , m + 24, alive)
+		matrix.changeElement(n + 3 , m + 26, alive)
+		matrix.changeElement(n + 4 , m + 14, alive)
+		matrix.changeElement(n + 4 , m + 15, alive)
+		matrix.changeElement(n + 4 , m + 22, alive)
+
+		matrix.changeElement(n + 4 , m + 23, alive)
+		matrix.changeElement(n + 4 , m + 36, alive)
+		matrix.changeElement(n + 4 , m + 37, alive)
+		matrix.changeElement(n + 5 , m + 13, alive)
+		matrix.changeElement(n + 5 , m + 17, alive)
+		matrix.changeElement(n + 5 , m + 22, alive)
+
+		matrix.changeElement(n + 5 , m + 23, alive)
+		matrix.changeElement(n + 5 , m + 36, alive)
+		matrix.changeElement(n + 5 , m + 37, alive)
+		matrix.changeElement(n + 6 , m + 2 , alive)
+		matrix.changeElement(n + 6 , m + 3 , alive)
+		matrix.changeElement(n + 6 , m + 12, alive)
+
+		matrix.changeElement(n + 6 , m + 18, alive)
+		matrix.changeElement(n + 6 , m + 22, alive)
+		matrix.changeElement(n + 6 , m + 23, alive)
+		matrix.changeElement(n + 7 , m + 2 , alive)
+		matrix.changeElement(n + 7 , m + 3 , alive)
+		matrix.changeElement(n + 7 , m + 12, alive)
+
+		matrix.changeElement(n + 7 , m + 16, alive)
+		matrix.changeElement(n + 7 , m + 18, alive)
+		matrix.changeElement(n + 7 , m + 19, alive)
+		matrix.changeElement(n + 7 , m + 24, alive)
+		matrix.changeElement(n + 7 , m + 26, alive)
+		matrix.changeElement(n + 8 , m + 12, alive)
+
+		matrix.changeElement(n + 8 , m + 18, alive)
+		matrix.changeElement(n + 8 , m + 26, alive)
+		matrix.changeElement(n + 9 , m + 13, alive)
+		matrix.changeElement(n + 9 , m + 17, alive)
+		matrix.changeElement(n + 10, m + 14, alive)
+		matrix.changeElement(n + 10, m + 15, alive)
+
+	}
+
 }
 
 class RowBuilder<T>(
