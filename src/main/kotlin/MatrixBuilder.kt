@@ -21,60 +21,66 @@ class MatrixBuilder<T>(
 		return matrix
 	}
 
-	fun spaceship(n: Int, m: Int, alive: T, dead: T) {
-		matrix.changeElement(n + 0, m + 0, dead)
-		matrix.changeElement(n + 1, m + 0, dead)
-		matrix.changeElement(n + 2, m + 0, alive)
-		matrix.changeElement(n + 0, m + 1, alive)
-		matrix.changeElement(n + 1, m + 1, dead)
-		matrix.changeElement(n + 2, m + 1, alive)
-		matrix.changeElement(n + 0, m + 2, dead)
-		matrix.changeElement(n + 1, m + 2, alive)
-		matrix.changeElement(n + 2, m + 2, alive)
+	fun spaceship(n: Int, m: Int, alive: T, dead: T, horizontalFlip: Boolean = false, verticalFlip: Boolean = false) {
+		val horizontalMultiplier = if (horizontalFlip) -1 else 1
+		val verticalMultiplier = if (verticalFlip) -1 else 1
+		matrix.changeElement(n + 0 * verticalMultiplier, m + 0 * horizontalMultiplier, dead)
+		matrix.changeElement(n + 1 * verticalMultiplier, m + 0 * horizontalMultiplier, dead)
+		matrix.changeElement(n + 2 * verticalMultiplier, m + 0 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 0 * verticalMultiplier, m + 1 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 1 * verticalMultiplier, m + 1 * horizontalMultiplier, dead)
+		matrix.changeElement(n + 2 * verticalMultiplier, m + 1 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 0 * verticalMultiplier, m + 2 * horizontalMultiplier, dead)
+		matrix.changeElement(n + 1 * verticalMultiplier, m + 2 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 2 * verticalMultiplier, m + 2 * horizontalMultiplier, alive)
 	}
 
-	fun gospersCannon(n: Int, m: Int, alive: T, dead: T) {
-		matrix.changeElement(n + 2 , m + 26, alive)
-		matrix.changeElement(n + 3 , m + 24, alive)
-		matrix.changeElement(n + 3 , m + 26, alive)
-		matrix.changeElement(n + 4 , m + 14, alive)
-		matrix.changeElement(n + 4 , m + 15, alive)
-		matrix.changeElement(n + 4 , m + 22, alive)
+	fun gospersCannon(n: Int, m: Int, alive: T, dead: T, horizontalFlip: Boolean = false, verticalFlip: Boolean = false) {
+		val horizontalMultiplier = if (horizontalFlip) -1 else 1
+		val verticalMultiplier = if (verticalFlip) -1 else 1
 
-		matrix.changeElement(n + 4 , m + 23, alive)
-		matrix.changeElement(n + 4 , m + 36, alive)
-		matrix.changeElement(n + 4 , m + 37, alive)
-		matrix.changeElement(n + 5 , m + 13, alive)
-		matrix.changeElement(n + 5 , m + 17, alive)
-		matrix.changeElement(n + 5 , m + 22, alive)
+		matrix.changeElement(n + 2  * verticalMultiplier, m + 26 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 3  * verticalMultiplier, m + 24 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 3  * verticalMultiplier, m + 26 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 4  * verticalMultiplier, m + 14 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 4  * verticalMultiplier, m + 15 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 4  * verticalMultiplier, m + 22 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 4  * verticalMultiplier, m + 23 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 4  * verticalMultiplier, m + 36 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 4  * verticalMultiplier, m + 37 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 5  * verticalMultiplier, m + 13 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 5  * verticalMultiplier, m + 17 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 5  * verticalMultiplier, m + 22 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 5  * verticalMultiplier, m + 23 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 5  * verticalMultiplier, m + 36 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 5  * verticalMultiplier, m + 37 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 6  * verticalMultiplier, m + 2  * horizontalMultiplier, alive)
+		matrix.changeElement(n + 6  * verticalMultiplier, m + 3  * horizontalMultiplier, alive)
+		matrix.changeElement(n + 6  * verticalMultiplier, m + 12 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 6  * verticalMultiplier, m + 18 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 6  * verticalMultiplier, m + 22 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 6  * verticalMultiplier, m + 23 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 7  * verticalMultiplier, m + 2  * horizontalMultiplier, alive)
+		matrix.changeElement(n + 7  * verticalMultiplier, m + 3  * horizontalMultiplier, alive)
+		matrix.changeElement(n + 7  * verticalMultiplier, m + 12 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 7  * verticalMultiplier, m + 16 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 7  * verticalMultiplier, m + 18 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 7  * verticalMultiplier, m + 19 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 7  * verticalMultiplier, m + 24 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 7  * verticalMultiplier, m + 26 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 8  * verticalMultiplier, m + 12 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 8  * verticalMultiplier, m + 18 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 8  * verticalMultiplier, m + 26 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 9  * verticalMultiplier, m + 13 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 9  * verticalMultiplier, m + 17 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 10 * verticalMultiplier, m + 14 * horizontalMultiplier, alive)
+		matrix.changeElement(n + 10 * verticalMultiplier, m + 15 * horizontalMultiplier, alive)
+	}
 
-		matrix.changeElement(n + 5 , m + 23, alive)
-		matrix.changeElement(n + 5 , m + 36, alive)
-		matrix.changeElement(n + 5 , m + 37, alive)
-		matrix.changeElement(n + 6 , m + 2 , alive)
-		matrix.changeElement(n + 6 , m + 3 , alive)
-		matrix.changeElement(n + 6 , m + 12, alive)
-
-		matrix.changeElement(n + 6 , m + 18, alive)
-		matrix.changeElement(n + 6 , m + 22, alive)
-		matrix.changeElement(n + 6 , m + 23, alive)
-		matrix.changeElement(n + 7 , m + 2 , alive)
-		matrix.changeElement(n + 7 , m + 3 , alive)
-		matrix.changeElement(n + 7 , m + 12, alive)
-
-		matrix.changeElement(n + 7 , m + 16, alive)
-		matrix.changeElement(n + 7 , m + 18, alive)
-		matrix.changeElement(n + 7 , m + 19, alive)
-		matrix.changeElement(n + 7 , m + 24, alive)
-		matrix.changeElement(n + 7 , m + 26, alive)
-		matrix.changeElement(n + 8 , m + 12, alive)
-
-		matrix.changeElement(n + 8 , m + 18, alive)
-		matrix.changeElement(n + 8 , m + 26, alive)
-		matrix.changeElement(n + 9 , m + 13, alive)
-		matrix.changeElement(n + 9 , m + 17, alive)
-		matrix.changeElement(n + 10, m + 14, alive)
-		matrix.changeElement(n + 10, m + 15, alive)
+	fun simpleOscillator(n: Int, m: Int, alive: T, dead: T) {
+		matrix.changeElement(n, m, alive)
+		matrix.changeElement(n, m + 1, alive)
+		matrix.changeElement(n, m + 2, alive)
 
 	}
 
