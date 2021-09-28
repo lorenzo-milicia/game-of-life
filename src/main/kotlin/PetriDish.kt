@@ -1,20 +1,14 @@
 class PetriDish(
-	cells: List<Int>,
 	private val columns: Int,
 	private val rows: Int
 ) {
 
-	val cells: MutableList<Cell>
+	val cells: List<Cell> = Array(columns * rows) { Cell() }.toList()
 
 	val numberOfCells: Int
 		get() = cells.size
 
-	init {
-		if (columns * rows != cells.size) throw Exception("Mismatching number of cells and dimensions.")
-		this.cells = cells.map { if (it == 1) Cell(CellState.ALIVE) else Cell(CellState.DEAD) }.toMutableList()
-	}
-
-	fun evolve(){
+	fun evolve() {
 		for ((index, cell) in cells.withIndex()) {
 			val column = index % columns
 			val row = index / columns
@@ -22,12 +16,12 @@ class PetriDish(
 			else cell.decideFate(
 				listOf(
 					cells[columns * (row - 1) + column - 1],
-					cells[columns * (row - 1) + column    ],
+					cells[columns * (row - 1) + column],
 					cells[columns * (row - 1) + column + 1],
-					cells[columns * (row    ) + column - 1],
-					cells[columns * (row    ) + column + 1],
+					cells[columns * (row) + column - 1],
+					cells[columns * (row) + column + 1],
 					cells[columns * (row + 1) + column - 1],
-					cells[columns * (row + 1) + column    ],
+					cells[columns * (row + 1) + column],
 					cells[columns * (row + 1) + column + 1],
 				))
 		}

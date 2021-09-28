@@ -1,8 +1,5 @@
 import processing.core.PApplet;
 
-import java.util.Arrays;
-
-
 public class Main extends PApplet {
     public static PApplet processing;
 
@@ -22,7 +19,6 @@ public class Main extends PApplet {
     public void settings() {
         //fullScreen(JAVA2D); //remember to comment size() and change the resolution to that of the fullscreen window
         size(resolution.horizontal, resolution.vertical, JAVA2D);
-
     }
 
     public void setup() {
@@ -36,7 +32,23 @@ public class Main extends PApplet {
             initialState[i] = round(pow(random(1), 6));
         }
 
-        petriDish = new PetriDish(Arrays.asList(initialState), grid.x, grid.y);
+        petriDish = PetriBuilder.builder(
+                petriBuilder -> {
+                    petriBuilder.setColumns(grid.x);
+                    petriBuilder.setRows(grid.y);
+                    petriBuilder.setPopulationStrategy(
+                            cell -> {
+                                if (round((float) Math.random()) == 1) {
+                                    cell.resuscitate();
+                                }
+                                return null;
+                            }
+                    );
+                    return null;
+                }
+        );
+
+        //petriDish = new PetriDish(Arrays.asList(initialState), grid.x, grid.y);
     }
 
     public void draw() {
@@ -44,16 +56,25 @@ public class Main extends PApplet {
 
         Display.display(petriDish);
 
-        if (isEvolutionHappening) {
+        if (isEvolutionHappening && frameCount % 2 == 0) {
             petriDish.evolve();
-            t++;
         }
-        delay(50);
+
+        t++;
+        //delay(50);
     }
 
     public void keyPressed() {
         if (key == ' ') {
             isEvolutionHappening = !isEvolutionHappening;
+        }
+        if (key == 'r') {
+            Integer[] initialState = new Integer[grid.x * grid.y];
+            for (int i = 0; i < initialState.length; i++) {
+                initialState[i] = round(pow(random(1), 6));
+            }
+
+            //petriDish = new PetriDish(Arrays.asList(initialState), grid.x, grid.y);
         }
     }
 

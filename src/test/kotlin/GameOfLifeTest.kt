@@ -3,7 +3,7 @@ import kotlin.test.assertEquals
 
 class GameOfLifeTest {
 
-	@Test
+	/*@Test
 	internal fun `a living cell surrounded by dead cells should die`() {
 		val input: List<Int> = listOf(
 			0, 0, 0,
@@ -95,7 +95,7 @@ class GameOfLifeTest {
 				0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0
 			), output)
-	}
+	}*/
 }
 
 
