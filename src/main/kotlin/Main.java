@@ -53,25 +53,16 @@ public class Main extends PApplet {
 
         Display.display(petriDish);
 
-        if (isEvolutionHappening && frameCount % 2 == 0) {
+        if (isEvolutionHappening && frameCount % 10 == 0) {
             petriDish.evolve();
         }
 
         t++;
-        //delay(50);
     }
 
     public void keyPressed() {
         if (key == ' ') {
             isEvolutionHappening = !isEvolutionHappening;
-        }
-        if (key == 'r') {
-            Integer[] initialState = new Integer[grid.x * grid.y];
-            for (int i = 0; i < initialState.length; i++) {
-                initialState[i] = round(pow(random(1), 6));
-            }
-
-            //TODO: reset petri dish
         }
     }
 

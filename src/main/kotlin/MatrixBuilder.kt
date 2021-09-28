@@ -14,7 +14,7 @@ class MatrixBuilder<T>(
 	}
 
 	fun all(element: T) {
-		(0 until rows).forEach { matrix.addRow(Row<T>(columns, element)) }
+		(0 until rows).forEach { _ -> matrix.addRow(Row<T>(columns, element)) }
 	}
 
 	fun build(): Matrix<T> {

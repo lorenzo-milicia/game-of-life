@@ -3,14 +3,14 @@ import kotlin.test.assertEquals
 
 class GameOfLifeTest {
 
-	/*@Test
+	@Test
 	internal fun `a living cell surrounded by dead cells should die`() {
-		val input: List<Int> = listOf(
+		val input: List<Cell> = listOf(
 			0, 0, 0,
 			0, 1, 0,
 			0, 0, 0
-		)
-		val petriDish = PetriDish(input, 3, 3)
+		).map { if (it == 1) Cell(CellState.ALIVE) else Cell() }
+		val petriDish = PetriDish(3, 3, input)
 		val output = petriDish.evolve().let { petriDish.cells.map { if (it.isAlive) 1 else 0 } }
 
 		assertEquals(
@@ -23,12 +23,12 @@ class GameOfLifeTest {
 
 	@Test
 	internal fun `a living cell surrounded by two living cells should stay alive`() {
-		val input: List<Int> = listOf(
+		val input = listOf(
 			1, 1, 0,
 			0, 1, 0,
 			0, 0, 0
-		)
-		val petriDish = PetriDish(input, 3, 3)
+		).map { if (it == 1) Cell(CellState.ALIVE) else Cell() }
+		val petriDish = PetriDish(3, 3, input)
 		val output = petriDish.evolve().let { petriDish.cells.map { if (it.isAlive) 1 else 0 } }
 
 		assertEquals(
@@ -41,12 +41,12 @@ class GameOfLifeTest {
 
 	@Test
 	internal fun `a living cell surrounded by more than three living cells should die`() {
-		val input: List<Int> = listOf(
+		val input = listOf(
 			1, 1, 1,
 			0, 1, 1,
 			0, 0, 0
-		)
-		val petriDish = PetriDish(input, 3, 3)
+		).map { if (it == 1) Cell(CellState.ALIVE) else Cell() }
+		val petriDish = PetriDish(3, 3, input)
 		val output = petriDish.evolve().let { petriDish.cells.map { if (it.isAlive) 1 else 0 } }
 
 		assertEquals(
@@ -59,12 +59,12 @@ class GameOfLifeTest {
 
 	@Test
 	internal fun `a dead cell surrounded by three living cells should come back to life`() {
-		val input: List<Int> = listOf(
+		val input = listOf(
 			1, 1, 1,
 			0, 0, 0,
 			0, 0, 0
-		)
-		val petriDish = PetriDish(input, 3, 3)
+		).map { if (it == 1) Cell(CellState.ALIVE) else Cell() }
+		val petriDish = PetriDish(3, 3, input)
 		val output = petriDish.evolve().let { petriDish.cells.map { if (it.isAlive) 1 else 0 } }
 
 		assertEquals(
@@ -77,14 +77,14 @@ class GameOfLifeTest {
 
 	@Test
 	internal fun `a 5 by 5 matrix of cells should evolve correctly`() {
-		val input: List<Int> = listOf(
+		val input = listOf(
 			0, 0, 0, 0, 0,
 			0, 1, 1, 0, 0,
 			0, 0, 1, 0, 0,
 			0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0
-		)
-		val petriDish = PetriDish(input, 5, 5)
+		).map { if (it == 1) Cell(CellState.ALIVE) else Cell() }
+		val petriDish = PetriDish(5, 5, input)
 		val output = petriDish.evolve().let { petriDish.cells.map { if (it.isAlive) 1 else 0 } }
 
 		assertEquals(
@@ -95,7 +95,7 @@ class GameOfLifeTest {
 				0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0
 			), output)
-	}*/
+	}
 }
 
 
