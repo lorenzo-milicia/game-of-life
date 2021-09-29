@@ -1,0 +1,1 @@
+class Grid(var x: Int, var y: Int)
