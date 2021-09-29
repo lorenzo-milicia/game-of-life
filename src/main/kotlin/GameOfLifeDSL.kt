@@ -10,7 +10,7 @@ class PetriBuilder {
 		val petri = if (intList == null) {
 			PetriDish(columns, rows).apply { cells.forEach { populationStrategy(it); it.executeFate() } }
 		}
-		else PetriDish(rows, columns, intList!!.map { if (it == 1) Cell(CellState.ALIVE) else Cell() })
+		else PetriDish(columns, rows, intList!!.map { if (it == 1) Cell(CellState.ALIVE) else Cell() })
 
 
 		return petri
