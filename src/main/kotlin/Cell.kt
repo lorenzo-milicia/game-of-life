@@ -1,3 +1,5 @@
+import kotlin.random.Random
+
 data class Cell(
 	private var state: CellState = CellState.DEAD
 ) {
@@ -23,7 +25,7 @@ data class Cell(
 
 	fun resuscitate() {
 		fate = CellState.ALIVE
-		cellAliveCounter ++;
+		cellAliveCounter++;
 	}
 
 	fun decideFate(neighbouringCells: List<Cell>) {
@@ -42,6 +44,7 @@ data class Cell(
 		else {
 			when {
 				neighbouringLivingCells == MAGIC_NUMBER_FOR_RESUSCITATING -> resuscitate()
+				//neighbouringLivingCells == 2 && Random.nextInt(100) == 1   -> resuscitate()
 				else                                                      -> Unit
 			}
 		}

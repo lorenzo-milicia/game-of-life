@@ -1,9 +1,8 @@
 class PetriDish(
 	private val columns: Int,
-	private val rows: Int
+	private val rows: Int,
+	val cells: List<Cell>
 ) {
-	//TODO: Posso mettere val e costruttore secondario insieme?
-	var cells: List<Cell> = Array(columns * rows) { Cell() }.toList()
 
 	val numberOfCells: Int
 		get() = cells.size
@@ -16,15 +15,16 @@ class PetriDish(
 			else cell.decideFate(
 				listOf(
 					cells[columns * (row - 1) + column - 1],
-					cells[columns * (row - 1) + column],
+					cells[columns * (row - 1) + column + 0],
 					cells[columns * (row - 1) + column + 1],
-					cells[columns * (row) + column - 1],
-					cells[columns * (row) + column + 1],
+					cells[columns * (row + 0) + column - 1],
+					cells[columns * (row + 0) + column + 1],
 					cells[columns * (row + 1) + column - 1],
-					cells[columns * (row + 1) + column],
+					cells[columns * (row + 1) + column + 0],
 					cells[columns * (row + 1) + column + 1],
 				))
 		}
+
 		cells.forEach { it.executeFate() }
 	}
 
@@ -32,7 +32,35 @@ class PetriDish(
 		cells[index].switchState()
 	}
 
-	constructor(columns: Int, rows: Int, cells: List<Cell>): this(columns, rows) {
-		this.cells = cells
+	fun isCellAlive(i: Int): Boolean = cells[i].isAlive
+
+	companion object {
+
+		@JvmName("ofinteger")
+		fun of(columns: Int, rows: Int, integerList: List<Int>) = PetriDish(
+			columns,
+			rows,
+			integerList.map {
+				if (it == 1) Cell(CellState.ALIVE) else Cell()
+			}
+		)
+
+		@JvmName("ofboolean")
+		fun of(columns: Int, rows: Int, booleanList: List<Boolean>) = PetriDish(
+			columns,
+			rows,
+			booleanList.map {
+				if (it) Cell(CellState.ALIVE) else Cell()
+			}
+		)
+
+		@JvmName("ofmatrix")
+		fun of(matrix: Matrix<Int>) = PetriDish(
+			matrix.m,
+			matrix.n,
+			matrix.toList().map {
+				if (it == 1) Cell(CellState.ALIVE) else Cell()
+			}
+		)
 	}
 }

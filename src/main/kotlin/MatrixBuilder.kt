@@ -3,7 +3,17 @@ class MatrixBuilder<T>(
 	private val columns: Int
 ) {
 
-	private val matrix: Matrix<T> = Matrix<T>(rows, columns)
+	private var matrix: Matrix<T> = Matrix<T>(rows, columns)
+
+	fun build(): Matrix<T> {
+		val product = matrix
+		reset()
+		return product
+	}
+
+	private fun reset() {
+		matrix = Matrix(rows, columns)
+	}
 
 	fun row(rowFun: RowBuilder<T>.() -> Unit) {
 		val rowBuilder = RowBuilder<T>(columns)
@@ -17,8 +27,8 @@ class MatrixBuilder<T>(
 		(0 until rows).forEach { _ -> matrix.addRow(Row<T>(columns, element)) }
 	}
 
-	fun build(): Matrix<T> {
-		return matrix
+	fun all(function: () -> T) {
+		(0 until rows).forEach { _ -> matrix.addRow(Row<T>(columns, function)) }
 	}
 
 	fun spaceship(n: Int, m: Int, alive: T, dead: T, horizontalFlip: Boolean = false, verticalFlip: Boolean = false) {
@@ -90,15 +100,22 @@ class RowBuilder<T>(
 	private val dimension: Int
 ) {
 
-	private val row: Row<T> = Row(dimension)
+	private var row: Row<T> = Row(dimension)
+
+	fun build(): Row<T> {
+		val product = row
+		reset()
+		return product
+	}
+
+	private fun reset() {
+		row = Row(dimension)
+	}
 
 	fun all(element: T) {
 		(0 until dimension).forEach { _ -> row.addElement(element) }
 	}
 
-	fun build(): Row<T> {
-		return row
-	}
 }
 
 fun <T> buildMatrix(rows: Int, columns: Int, lambda: MatrixBuilder<T>.() -> Unit): Matrix<T> {
@@ -110,8 +127,8 @@ fun <T> buildMatrix(rows: Int, columns: Int, lambda: MatrixBuilder<T>.() -> Unit
 }
 
 class Matrix<T>(
-	private val n: Int,
-	private val m: Int
+	val n: Int,
+	val m: Int
 ) {
 
 	private val rows: MutableList<Row<T>> = mutableListOf()
@@ -170,5 +187,10 @@ class Row<T>(
 	constructor(dimension: Int, element: T): this(dimension){
 		elements.removeAll { true }
 		(0 until dimension).forEach { elements.add(element) }
+	}
+
+	constructor(dimension: Int, function: () -> T): this(dimension){
+		elements.removeAll { true }
+		(0 until dimension).forEach { elements.add(function()) }
 	}
 }

@@ -1,4 +1,3 @@
-import PetriBuilder.Companion.builder
 import processing.core.PApplet
 
 class Main: PApplet() {
@@ -7,12 +6,9 @@ class Main: PApplet() {
 
 		lateinit var processing: PApplet
 
-//		const val cellSize = 10 //to avoid bugs make sure the resolution is a multiple of this
 		var cellSize: Int = 10 //to avoid bugs make sure the resolution is a multiple of this
-//		var resolution = Resolution(1000, 1000)
 		lateinit var resolution: Resolution
 		lateinit var grid: Grid
-//		val grid = Grid(resolution.horizontal / cellSize, resolution.vertical / cellSize)
 
 		var t = 0
 	}
@@ -24,7 +20,7 @@ class Main: PApplet() {
 
 	override fun settings() {
 		//fullScreen(JAVA2D); //remember to comment size() and change the resolution to that of the fullscreen window
-		size(resolution.horizontal, resolution.vertical, JAVA2D)
+		size(resolution.horizontal, resolution.vertical)
 	}
 
 	override fun setup() {
@@ -37,14 +33,9 @@ class Main: PApplet() {
 			buildMatrix<Int>(grid.y, grid.x) {
 				all(0)
 				gospersCannon(20, 20, 1, 0)
-				gospersCannon(80, 20, 1, 0, verticalFlip = true)
 			}
 
-		petriDish = builder {
-			columns = grid.x
-			rows = grid.y
-			intList = matrix.toList()
-		}
+		petriDish = PetriDish.of(matrix)
 	}
 
 	override fun draw() {
@@ -52,7 +43,7 @@ class Main: PApplet() {
 
 		Display.display(petriDish)
 
-		if (isEvolutionHappening && frameCount % 2 == 0) {
+		if (isEvolutionHappening && frameCount % 5 == 0) {
 			petriDish.evolve()
 		}
 
