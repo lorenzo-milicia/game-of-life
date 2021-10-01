@@ -3,7 +3,7 @@ class MatrixBuilder<T>(
 	private val columns: Int
 ) {
 
-	private var matrix: Matrix<T> = Matrix<T>(rows, columns)
+	private var matrix: Matrix<T> = Matrix(rows, columns)
 
 	fun build(): Matrix<T> {
 		val product = matrix
@@ -24,11 +24,11 @@ class MatrixBuilder<T>(
 	}
 
 	fun all(element: T) {
-		(0 until rows).forEach { _ -> matrix.addRow(Row<T>(columns, element)) }
+		(0 until rows).forEach { _ -> matrix.addRow(Row(columns, element)) }
 	}
 
 	fun all(function: () -> T) {
-		(0 until rows).forEach { _ -> matrix.addRow(Row<T>(columns, function)) }
+		(0 until rows).forEach { _ -> matrix.addRow(Row(columns, function)) }
 	}
 
 	fun spaceship(n: Int, m: Int, alive: T, dead: T, horizontalFlip: Boolean = false, verticalFlip: Boolean = false) {
@@ -159,7 +159,7 @@ class Matrix<T>(
 
 	fun replaceAll(element: T) {
 		val newRows = mutableListOf<Row<T>>()
-		(0 until n).forEach {
+		repeat((0 until n).count()) {
 			newRows.add(Row(m))
 		}
 	}
@@ -186,11 +186,11 @@ class Row<T>(
 
 	constructor(dimension: Int, element: T): this(dimension){
 		elements.removeAll { true }
-		(0 until dimension).forEach { elements.add(element) }
+		repeat((0 until dimension).count()) { elements.add(element) }
 	}
 
 	constructor(dimension: Int, function: () -> T): this(dimension){
 		elements.removeAll { true }
-		(0 until dimension).forEach { elements.add(function()) }
+		repeat((0 until dimension).count()) { elements.add(function()) }
 	}
 }

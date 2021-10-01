@@ -1,4 +1,4 @@
-class PetriDish(
+class PetriDish private constructor(
 	private val columns: Int,
 	private val rows: Int,
 	val cells: List<Cell>
@@ -44,7 +44,6 @@ class PetriDish(
 				if (it == 1) Cell(CellState.ALIVE) else Cell()
 			}
 		)
-
 		@JvmName("ofboolean")
 		fun of(columns: Int, rows: Int, booleanList: List<Boolean>) = PetriDish(
 			columns,
@@ -53,7 +52,12 @@ class PetriDish(
 				if (it) Cell(CellState.ALIVE) else Cell()
 			}
 		)
-
+		@JvmName("ofcells")
+		fun of(columns: Int, rows: Int, cellList: List<Cell>) = PetriDish(
+			columns,
+			rows,
+			cellList
+		)
 		@JvmName("ofmatrix")
 		fun of(matrix: Matrix<Int>) = PetriDish(
 			matrix.m,

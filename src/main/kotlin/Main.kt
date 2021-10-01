@@ -14,7 +14,7 @@ class Main: PApplet() {
 	}
 
 
-	lateinit var petriDish: PetriDish
+	private lateinit var petriDish: PetriDish
 
 	private var isEvolutionHappening = true
 
@@ -30,7 +30,7 @@ class Main: PApplet() {
 		colorMode(HSB, 255f)
 
 		val matrix =
-			buildMatrix<Int>(grid.y, grid.x) {
+			buildMatrix<Int>(grid.rows, grid.columns) {
 				all(0)
 				gospersCannon(20, 20, 1, 0)
 			}
@@ -59,7 +59,7 @@ class Main: PApplet() {
 	override fun mousePressed() {
 		val column = mouseX / cellSize
 		val row = mouseY / cellSize
-		petriDish.switchStateOfCell(row * grid.x + column)
+		petriDish.switchStateOfCell(row * grid.columns + column)
 	}
 }
 

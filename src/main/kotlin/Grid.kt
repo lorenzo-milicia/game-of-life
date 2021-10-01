@@ -1,1 +1,1 @@
-class Grid(var x: Int, var y: Int)
+class Grid(var columns: Int, var rows: Int)

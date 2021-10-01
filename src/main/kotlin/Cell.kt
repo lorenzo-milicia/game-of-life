@@ -1,5 +1,3 @@
-import kotlin.random.Random
-
 data class Cell(
 	private var state: CellState = CellState.DEAD
 ) {
