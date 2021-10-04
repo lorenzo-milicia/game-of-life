@@ -34,14 +34,14 @@ class PetriDish private constructor(
 
 	fun isCellAlive(i: Int): Boolean = cells[i].isAlive
 
-	companion object {
+	companion object Factory {
 
 		@JvmName("ofinteger")
 		fun of(columns: Int, rows: Int, integerList: List<Int>) = PetriDish(
 			columns,
 			rows,
 			integerList.map {
-				if (it == 1) Cell(CellState.ALIVE) else Cell()
+				if (it == 0) Cell(CellState.DEAD) else Cell(CellState.ALIVE)
 			}
 		)
 		@JvmName("ofboolean")
@@ -63,7 +63,7 @@ class PetriDish private constructor(
 			matrix.m,
 			matrix.n,
 			matrix.toList().map {
-				if (it == 1) Cell(CellState.ALIVE) else Cell()
+				if (it == 0) Cell(CellState.DEAD) else Cell(CellState.ALIVE)
 			}
 		)
 	}

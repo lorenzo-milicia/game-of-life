@@ -4,12 +4,11 @@ data class Cell(
 
 	private var fate: CellState
 
-	var cellAliveCounter = 0;
+	var cellAliveCounter = 0
 
 	init {
 		fate = state
 	}
-
 
 	val isAlive: Boolean
 		get() = state == CellState.ALIVE
@@ -23,7 +22,7 @@ data class Cell(
 
 	fun resuscitate() {
 		fate = CellState.ALIVE
-		cellAliveCounter++;
+		cellAliveCounter++
 	}
 
 	fun decideFate(neighbouringCells: List<Cell>) {

@@ -1,4 +1,5 @@
 import processing.core.PApplet
+import kotlin.random.Random
 
 class Main: PApplet() {
 
@@ -13,13 +14,12 @@ class Main: PApplet() {
 		var t = 0
 	}
 
-
 	private lateinit var petriDish: PetriDish
 
 	private var isEvolutionHappening = true
 
 	override fun settings() {
-		//fullScreen(JAVA2D); //remember to comment size() and change the resolution to that of the fullscreen window
+		//fullScreen(); //remember to comment size() and change the resolution to that of the fullscreen window
 		size(resolution.horizontal, resolution.vertical)
 	}
 
@@ -31,8 +31,10 @@ class Main: PApplet() {
 
 		val matrix =
 			buildMatrix<Int>(grid.rows, grid.columns) {
-				all(0)
-				gospersCannon(20, 20, 1, 0)
+				all {
+					Random.nextInt(2)
+				}
+				//gospersCannon(20, 20, 1, 0)
 			}
 
 		petriDish = PetriDish.of(matrix)
@@ -70,6 +72,6 @@ fun main(args: Array<String>) {
 
 	Main.cellSize = cellSize
 	Main.resolution = Resolution(horizontal, vertical)
-	Main.grid = Grid(horizontal/cellSize, vertical/cellSize)
+	Main.grid = Grid(horizontal / cellSize, vertical / cellSize)
 	PApplet.main("Main")
 }

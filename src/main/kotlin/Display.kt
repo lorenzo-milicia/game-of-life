@@ -3,31 +3,35 @@ object Display {
 	var rotation = true
 
 	fun display(petriDish: PetriDish) {
-		for ((index, cell) in petriDish.cells.withIndex()) {
-			val column = index % Main.grid.columns
-			val row = index / Main.grid.columns
-			cell.display(column, row)
-		}
-	}
-
-	private fun Cell.display(columnReference: Int, rowReference: Int) {
 		Main.processing.run {
-			if (isAlive) {
-				//fill((rows + Main.t) % 255, 255, 255 * petriDish.getCells().get(i).getCellAliveCounter() / 50.f);
-				fill(((columnReference + Main.t) % 255).toFloat(), 255f, 255f)
+			for ((index, cell) in petriDish.cells.withIndex()) {
+				val column = index % Main.grid.columns
+				val row = index / Main.grid.columns
 				push()
 				translate(
-					(columnReference * Main.cellSize + Main.cellSize / 2).toFloat(),
-					(rowReference * Main.cellSize + Main.cellSize / 2).toFloat())
+					(column * Main.cellSize + Main.cellSize / 2).toFloat(),
+					(row * Main.cellSize + Main.cellSize / 2).toFloat())
 				if (rotation) {
 					rotate(Main.t / 20f)
 				}
-				square(
-					(-Main.cellSize / 2).toFloat(),
-					(-Main.cellSize / 2).toFloat(),
-					Main.cellSize.toFloat())
+				if (petriDish.isCellAlive(index)) {
+					fill(((column + Main.t) % 255).toFloat(), 255f, 255f)
+
+					cell.display()
+				}
 				pop()
 			}
+		}
+	}
+
+	private fun Cell.display() {
+		Main.processing.run {
+			//fill((rows + Main.t) % 255, 255, 255 * petriDish.getCells().get(i).getCellAliveCounter() / 50.f);
+			square(
+				(-Main.cellSize / 2).toFloat(),
+				(-Main.cellSize / 2).toFloat(),
+				Main.cellSize.toFloat())
+
 		}
 	}
 }
