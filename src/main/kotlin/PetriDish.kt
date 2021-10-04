@@ -1,13 +1,26 @@
-class PetriDish private constructor(
-	private val columns: Int,
-	private val rows: Int,
-	val cells: List<Cell>
-) {
-
+interface IPetriDish {
+	val columns: Int
+	val rows: Int
+	val cells: List<ICell>
 	val numberOfCells: Int
+
+	fun evolve()
+	fun switchStateOfCell(index: Int)
+	fun isCellAlive(index: Int): Boolean
+
+	companion object
+}
+
+class PetriDish private constructor(
+	override val columns: Int,
+	override val rows: Int,
+	override val cells: List<Cell>
+): IPetriDish {
+
+	override val numberOfCells: Int
 		get() = cells.size
 
-	fun evolve() {
+	override fun evolve() {
 		for ((index, cell) in cells.withIndex()) {
 			val column = index % columns
 			val row = index / columns
@@ -28,11 +41,11 @@ class PetriDish private constructor(
 		cells.forEach { it.executeFate() }
 	}
 
-	fun switchStateOfCell(index: Int) {
+	override fun switchStateOfCell(index: Int) {
 		cells[index].switchState()
 	}
 
-	fun isCellAlive(i: Int): Boolean = cells[i].isAlive
+	override fun isCellAlive(i: Int): Boolean = cells[i].isAlive
 
 	companion object Factory {
 

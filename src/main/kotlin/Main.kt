@@ -28,6 +28,7 @@ class Main: PApplet() {
 
 		background(0)
 		colorMode(HSB, 255f)
+		rectMode(CENTER)
 
 		val matrix =
 			buildMatrix<Int>(grid.rows, grid.columns) {

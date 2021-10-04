@@ -1,8 +1,21 @@
-data class Cell(
-	private var state: CellState = CellState.DEAD
-) {
+interface ICell {
+	var state: CellState
+	var fate: CellState
+	val isAlive: Boolean
+	val isDead: Boolean
 
-	private var fate: CellState
+	fun kill()
+	fun resuscitate()
+	fun decideFate(neighbouringCells: List<Cell>)
+	fun executeFate()
+	fun switchState()
+}
+
+data class Cell(
+	override var state: CellState = CellState.DEAD
+): ICell {
+
+	override lateinit var fate: CellState
 
 	var cellAliveCounter = 0
 
@@ -10,22 +23,22 @@ data class Cell(
 		fate = state
 	}
 
-	val isAlive: Boolean
+	override val isAlive: Boolean
 		get() = state == CellState.ALIVE
 
-	val isDead: Boolean
+	override val isDead: Boolean
 		get() = state == CellState.DEAD
 
-	fun kill() {
+	override fun kill() {
 		fate = CellState.DEAD
 	}
 
-	fun resuscitate() {
+	override fun resuscitate() {
 		fate = CellState.ALIVE
 		cellAliveCounter++
 	}
 
-	fun decideFate(neighbouringCells: List<Cell>) {
+	override fun decideFate(neighbouringCells: List<Cell>) {
 		val neighbouringLivingCells = neighbouringCells.count { it.isAlive }
 		val MAX_LIVING_NEIGHBOURING_CELLS = 3
 		val MIN_LIVING_NEIGHBOURING_CELLS = 2
@@ -47,11 +60,11 @@ data class Cell(
 		}
 	}
 
-	fun executeFate() {
+	override fun executeFate() {
 		state = fate
 	}
 
-	fun switchState() {
+	override fun switchState() {
 		state = if (isAlive) CellState.DEAD.also { kill() }
 		else CellState.ALIVE.also { resuscitate() }
 	}
