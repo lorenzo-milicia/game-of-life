@@ -56,3 +56,27 @@ class RenderableCell(
 	}
 
 }
+
+class DelegatedCell(cell: Cell): ICell by cell {
+	val color: Color
+		get() =
+			if (isAlive) Color(255f,255f,255f,255f)
+			else Color(0.0f,0.0f,0.0f,0.0f)
+
+	var size: Float = 0.0f
+
+	fun display() {
+		Main.processing.run {
+			push()
+			fill(color.r,color.g,color.b,color.a)
+			//fill((rows + Main.t) % 255, 255, 255 * petriDish.getCells().get(i).getCellAliveCounter() / 50.f);
+			square(
+				-size / 2,
+				-size / 2,
+				size
+			)
+			pop()
+
+		}
+	}
+}
