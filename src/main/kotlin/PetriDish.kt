@@ -1,3 +1,5 @@
+import building.Matrix
+
 class PetriDish private constructor(
 	private val columns: Int,
 	private val rows: Int,
@@ -28,9 +30,7 @@ class PetriDish private constructor(
 		cells.forEach { it.executeFate() }
 	}
 
-	fun switchStateOfCell(index: Int) {
-		cells[index].switchState()
-	}
+	fun switchStateOfCell(index: Int) = cells[index].switchState()
 
 	fun isCellAlive(i: Int): Boolean = cells[i].isAlive
 

@@ -1,3 +1,6 @@
+import building.Matrix
+import building.Row
+
 class MatrixBuilder<T>(
 	private val rows: Int,
 	private val columns: Int
@@ -126,71 +129,3 @@ fun <T> buildMatrix(rows: Int, columns: Int, lambda: MatrixBuilder<T>.() -> Unit
 	return builder.build()
 }
 
-class Matrix<T>(
-	val n: Int,
-	val m: Int
-) {
-
-	private val rows: MutableList<Row<T>> = mutableListOf()
-
-	fun getElement(row: Int, column: Int): T {
-		return rows[row].getElement(column)
-	}
-
-	fun changeElement(row: Int, column: Int, new: T) {
-		rows[row].changeElement(column, new)
-	}
-
-	fun addElement(element: T) {
-
-	}
-
-	fun addRow(row: Row<T>) {
-		rows.add(row)
-	}
-
-	fun toList(): List<T> {
-		val tempList = mutableListOf<T>()
-		rows.forEach { row ->
-			row.elements.forEach { tempList.add(it) }
-		}
-		return tempList
-	}
-
-	fun replaceAll(element: T) {
-		val newRows = mutableListOf<Row<T>>()
-		repeat((0 until n).count()) {
-			newRows.add(Row(m))
-		}
-	}
-
-}
-
-class Row<T>(
-	private val dimension: Int
-) {
-
-	val elements: MutableList<T> = mutableListOf()
-
-	fun getElement(index: Int): T {
-		return elements[index]
-	}
-
-	fun changeElement(index: Int, new: T) {
-		elements[index] = new
-	}
-
-	fun addElement(element: T) {
-		elements.add(element)
-	}
-
-	constructor(dimension: Int, element: T): this(dimension){
-		elements.removeAll { true }
-		repeat((0 until dimension).count()) { elements.add(element) }
-	}
-
-	constructor(dimension: Int, function: () -> T): this(dimension){
-		elements.removeAll { true }
-		repeat((0 until dimension).count()) { elements.add(function()) }
-	}
-}
