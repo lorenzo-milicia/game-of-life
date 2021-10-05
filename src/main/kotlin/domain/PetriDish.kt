@@ -23,7 +23,7 @@ class PetriDish private constructor(
 			else {
 				cell.decideFate(
 					RelativeCoordinates.values().map {
-						cells[columns * (row + it.offset.verticalOffset) + column + it.offset.horizontalOffset]
+						cells[columns * (row + it.offset.vertical) + column + it.offset.horizontal]
 					}.count { it.isAlive }
 				)
 			}

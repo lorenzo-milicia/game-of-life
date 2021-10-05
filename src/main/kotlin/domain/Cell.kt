@@ -28,10 +28,6 @@ class Cell(
 	}
 
 	fun decideFate(neighbouringLivingCellsCount: Int) {
-		val MAX_LIVING_NEIGHBOURING_CELLS = 3
-		val MIN_LIVING_NEIGHBOURING_CELLS = 2
-		val MAGIC_NUMBER_FOR_RESUSCITATING = 3
-
 		when (state) {
 			CellState.ALIVE -> when {
 				neighbouringLivingCellsCount > MAX_LIVING_NEIGHBOURING_CELLS -> kill()
@@ -56,5 +52,12 @@ class Cell(
 			CellState.ALIVE -> CellState.DEAD.also { kill() }
 			CellState.DEAD  -> CellState.ALIVE.also { resuscitate() }
 		}
+	}
+
+	private companion object {
+		const val MAX_LIVING_NEIGHBOURING_CELLS = 3
+		const val MIN_LIVING_NEIGHBOURING_CELLS = 2
+		const val MAGIC_NUMBER_FOR_RESUSCITATING = 3
+
 	}
 }
