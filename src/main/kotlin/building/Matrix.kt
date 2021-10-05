@@ -1,11 +1,13 @@
 package building
 
+typealias RowList<T> = MutableList<Row<T>>
+
 class Matrix<T>(
 	val n: Int,
 	val m: Int
 ) {
 
-	private val rows: MutableList<Row<T>> = mutableListOf()
+	private val rows: RowList<T> = mutableListOf()
 
 	fun getElement(row: Int, column: Int): T {
 		return rows[row].getElement(column)
@@ -37,5 +39,4 @@ class Matrix<T>(
 			newRows.add(Row(m))
 		}
 	}
-
 }

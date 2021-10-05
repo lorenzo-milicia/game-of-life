@@ -6,6 +6,10 @@ class PetriDish private constructor(
 	val cells: List<Cell>
 ) {
 
+	init {
+		if (columns * rows != cells.size) throw Exception("Mismatching dimensions and array size.")
+	}
+
 	val numberOfCells: Int
 		get() = cells.size
 
@@ -24,7 +28,9 @@ class PetriDish private constructor(
 					cells[columns * (row + 1) + column - 1],
 					cells[columns * (row + 1) + column + 0],
 					cells[columns * (row + 1) + column + 1],
-				))
+				)
+					.count { it.isAlive }
+			)
 		}
 
 		cells.forEach { it.executeFate() }

@@ -1,4 +1,4 @@
-data class Cell(
+class Cell(
 	private var state: CellState = CellState.DEAD
 ) {
 
@@ -25,21 +25,20 @@ data class Cell(
 		cellAliveCounter++
 	}
 
-	fun decideFate(neighbouringCells: List<Cell>) {
-		val neighbouringLivingCells = neighbouringCells.count { it.isAlive }
+	fun decideFate(neighbouringLivingCells: Int) {
 		val MAX_LIVING_NEIGHBOURING_CELLS = 3
 		val MIN_LIVING_NEIGHBOURING_CELLS = 2
 		val MAGIC_NUMBER_FOR_RESUSCITATING = 3
 
-		if (isAlive) {
-			when {
+		when (state) {
+
+			CellState.ALIVE -> when {
 				neighbouringLivingCells > MAX_LIVING_NEIGHBOURING_CELLS -> kill()
 				neighbouringLivingCells < MIN_LIVING_NEIGHBOURING_CELLS -> kill()
 				else                                                    -> Unit
 			}
-		}
-		else {
-			when {
+
+			CellState.DEAD  -> when {
 				neighbouringLivingCells == MAGIC_NUMBER_FOR_RESUSCITATING -> resuscitate()
 				//neighbouringLivingCells == 2 && Random.nextInt(100) == 1   -> resuscitate()
 				else                                                      -> Unit
@@ -52,7 +51,9 @@ data class Cell(
 	}
 
 	fun switchState() {
-		state = if (isAlive) CellState.DEAD.also { kill() }
-		else CellState.ALIVE.also { resuscitate() }
+		state = when (state) {
+			CellState.ALIVE -> CellState.DEAD.also { kill() }
+			CellState.DEAD  -> CellState.ALIVE.also { resuscitate() }
+		}
 	}
 }
