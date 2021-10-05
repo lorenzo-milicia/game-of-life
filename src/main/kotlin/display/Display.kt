@@ -1,3 +1,9 @@
+package display
+
+import Main
+import domain.Cell
+import domain.PetriDish
+
 object Display {
 
 	var rotation = true

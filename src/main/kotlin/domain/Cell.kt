@@ -1,3 +1,5 @@
+package domain
+
 class Cell(
 	private var state: CellState = CellState.DEAD
 ) {
@@ -25,23 +27,22 @@ class Cell(
 		cellAliveCounter++
 	}
 
-	fun decideFate(neighbouringLivingCells: Int) {
+	fun decideFate(neighbouringLivingCellsCount: Int) {
 		val MAX_LIVING_NEIGHBOURING_CELLS = 3
 		val MIN_LIVING_NEIGHBOURING_CELLS = 2
 		val MAGIC_NUMBER_FOR_RESUSCITATING = 3
 
 		when (state) {
-
 			CellState.ALIVE -> when {
-				neighbouringLivingCells > MAX_LIVING_NEIGHBOURING_CELLS -> kill()
-				neighbouringLivingCells < MIN_LIVING_NEIGHBOURING_CELLS -> kill()
-				else                                                    -> Unit
+				neighbouringLivingCellsCount > MAX_LIVING_NEIGHBOURING_CELLS -> kill()
+				neighbouringLivingCellsCount < MIN_LIVING_NEIGHBOURING_CELLS -> kill()
+				else                                                         -> Unit
 			}
 
 			CellState.DEAD  -> when {
-				neighbouringLivingCells == MAGIC_NUMBER_FOR_RESUSCITATING -> resuscitate()
+				neighbouringLivingCellsCount == MAGIC_NUMBER_FOR_RESUSCITATING -> resuscitate()
 				//neighbouringLivingCells == 2 && Random.nextInt(100) == 1   -> resuscitate()
-				else                                                      -> Unit
+				else                                                           -> Unit
 			}
 		}
 	}

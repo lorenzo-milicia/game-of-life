@@ -1,3 +1,5 @@
+package domain
+
 import building.Matrix
 
 class PetriDish private constructor(
@@ -18,19 +20,13 @@ class PetriDish private constructor(
 			val column = index % columns
 			val row = index / columns
 			if (column == 0 || column == (columns - 1) || row == 0 || row == (rows - 1)) cell.kill()
-			else cell.decideFate(
-				listOf(
-					cells[columns * (row - 1) + column - 1],
-					cells[columns * (row - 1) + column + 0],
-					cells[columns * (row - 1) + column + 1],
-					cells[columns * (row + 0) + column - 1],
-					cells[columns * (row + 0) + column + 1],
-					cells[columns * (row + 1) + column - 1],
-					cells[columns * (row + 1) + column + 0],
-					cells[columns * (row + 1) + column + 1],
+			else {
+				cell.decideFate(
+					RelativeCoordinates.values().map {
+						cells[columns * (row + it.offset.verticalOffset) + column + it.offset.horizontalOffset]
+					}.count { it.isAlive }
 				)
-					.count { it.isAlive }
-			)
+			}
 		}
 
 		cells.forEach { it.executeFate() }
@@ -50,6 +46,7 @@ class PetriDish private constructor(
 				if (it == 0) Cell(CellState.DEAD) else Cell(CellState.ALIVE)
 			}
 		)
+
 		@JvmName("ofboolean")
 		fun of(columns: Int, rows: Int, booleanList: List<Boolean>) = PetriDish(
 			columns,
@@ -58,12 +55,14 @@ class PetriDish private constructor(
 				if (it) Cell(CellState.ALIVE) else Cell()
 			}
 		)
+
 		@JvmName("ofcells")
 		fun of(columns: Int, rows: Int, cellList: List<Cell>) = PetriDish(
 			columns,
 			rows,
 			cellList
 		)
+
 		@JvmName("ofmatrix")
 		fun of(matrix: Matrix<Int>) = PetriDish(
 			matrix.m,

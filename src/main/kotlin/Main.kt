@@ -1,3 +1,7 @@
+import display.Display
+import display.Grid
+import display.Resolution
+import domain.PetriDish
 import processing.core.PApplet
 import kotlin.random.Random
 
